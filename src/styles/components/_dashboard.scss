@@ -1,0 +1,68 @@
+.map__container {
+  width: 100%;
+  height: 50vh;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20rem;
+  margin-bottom: 10rem;
+}
+
+.map__container--dashboard {
+  width: 40%;
+}
+
+.container__input {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+  height: 50vh;
+  align-items: center;
+  justify-content: space-around;
+  border-style: solid;
+  border: none;
+  border-right: 2px solid lighten($blue, 30%);
+}
+
+.container__inputbox {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  height: 100%;
+  align-items: center;
+}
+
+.container__output {
+  height: 0;
+  width: 75%;
+}
+
+#start {
+  width: 75%;
+}
+
+#finish {
+  width: 75%;
+}
+
+.input-label {
+  width: 85%;
+  display: flex;
+  align-items: left;
+}
+
+@media only screen and (max-width: $breakpoint) {
+  .wrapper {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .container__input {
+    border: none;
+    border-bottom: 2px solid lighten($blue, 30%);
+  }
+} ;

@@ -1,0 +1,18 @@
+.fav-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.fav-unavailable {
+  font-size: 2.6rem;
+  font-style: italic;
+  color: lighten($blue, 40%);
+}
+
+.spinner-message {
+  font-style: italic;
+  color: lighten($blue, 40%);
+}

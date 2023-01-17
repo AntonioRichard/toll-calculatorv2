@@ -1,0 +1,45 @@
+.container-register {
+  width: 45rem;
+  height: 70rem;
+  margin: auto;
+  margin-top: 14rem;
+  margin-bottom: 4rem;
+  padding: 3rem;
+  border-radius: 1rem;
+  box-shadow: 0 0.188em 1.155em darken($blue, 10%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#errorMessage {
+  color: $red;
+  // font-style: italic;
+  font-weight: bold;
+}
+
+.wrong-input {
+  outline: 0.2rem solid;
+  outline-color: $red;
+}
+
+.error__container {
+  width: 70%;
+  text-align: center;
+}
+
+.field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
+
+@media only screen and (max-width: $breakpoint) {
+  .container-register {
+    width: auto;
+    box-shadow: none;
+  }
+}

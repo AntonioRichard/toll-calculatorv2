@@ -1,0 +1,18 @@
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3rem;
+  height: 100%;
+  width: 100%;
+}
+
+.loader__image {
+  height: 15rem;
+  width: 20rem;
+}
+
+.spinner-message {
+  margin-top: 0;
+}

@@ -1,0 +1,80 @@
+.route-output-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.route-index {
+  font-weight: 900;
+  font-size: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.route-summary {
+  font-weight: 600;
+}
+
+.total-cost {
+  margin-top: 0;
+}
+
+.toll-details {
+  width: 80%;
+  margin-top: 0;
+}
+
+.add-fav {
+  all: unset;
+  cursor: pointer;
+  margin-left: 5px;
+  margin-top: 3px;
+  font-size: 2rem;
+}
+
+.route-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 100px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -50px;
+  background-color: $sand-white;
+  color: lighten($blue, 40%);
+  text-align: center;
+  font-size: 16px;
+  border-radius: 6px;
+  padding: 6px;
+  font-weight: 500;
+  font-style: italic;
+
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.tooltip .tooltiptext::after {
+  content: " ";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-top: -5px;
+  border-width: 7px;
+  border-style: solid;
+  border-color: transparent $sand-white transparent transparent;
+}
