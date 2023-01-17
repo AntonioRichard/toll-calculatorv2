@@ -1,11 +1,3 @@
-TODO:
-
-[x]. compute expenses and routes with TollGuru API
-[x]. interface for logged in users with favroutes and logout
-[]. add routes to favorite via firebase
-[x]. change dashboard design
-[]. wire login and register to firebase
-[]. deploy to heroku
-[x]. format api output
-[]. compare and display shortest & fastest route
-[]. draw routes on map
+Echipa: Antonio Richard
+Tehnologii: React, Express, Firebase
+Descriere: Aplicatia calculeaza taxele de drum pentru tari din UE. Utilizatorul introduce punctul de plecare si destinatia iar aplicatia calculeaza taxele de drum pe diferite rute. Rutele pot fi adaugate la favorite daca acesta este autentificat
