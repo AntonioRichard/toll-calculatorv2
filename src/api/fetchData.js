@@ -1,4 +1,3 @@
-import React from "react";
 import axios from "axios";
 
 const url = "https://dev.TollGuru.com/v1/calc/gmaps";

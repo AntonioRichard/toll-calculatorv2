@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { fetchData } from "./FetchData";
+import { fetchData } from "../api/fetchData";
 import Map from "./Map";
 import RouteOutput from "./RouteOutput";
 import Spinner from "./Spinner";
