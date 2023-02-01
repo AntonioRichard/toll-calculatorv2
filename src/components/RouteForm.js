@@ -1,71 +1,75 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
 import { fetchData } from "../api/fetchData";
-import Map from "./Map";
 import RouteOutput from "./RouteOutput";
 import Spinner from "./Spinner";
 
+const libraries = ["places"];
+
 export default function RouteForm() {
-  const [start, setStart] = useState("");
-  const [finish, setFinish] = useState("");
   const [res, setRes] = useState([]);
   const [loaded, setLoaded] = useState(true);
   const [error, setError] = useState("");
 
-  const onStartChange = (e) => {
-    setStart(e.target.value);
-  };
+  const startRef = useRef("");
+  const finishRef = useRef("");
 
-  const onFinishChange = (e) => {
-    setFinish(e.target.value);
-  };
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    libraries,
+  });
+
+  if (!isLoaded) {
+    return <Spinner />;
+  }
 
   return (
-    <div className="wrapper">
-      <div className="container__input">
-        <div className="container__inputbox">
-          <p className="input-label">Origin</p>
+    <div className="container__input">
+      <div className="container__inputbox">
+        <p className="input-label">Origin</p>
+        <Autocomplete>
           <input
             type="text"
             placeholder="Starting point"
             id="start"
-            value={start}
-            onChange={onStartChange}
+            ref={startRef}
           />
-          <p className="input-label">Destination</p>
+        </Autocomplete>
+        <p className="input-label">Destination</p>
+        <Autocomplete>
           <input
             type="text"
             placeholder="Destination"
             id="finish"
-            value={finish}
-            onChange={onFinishChange}
+            ref={finishRef}
           />
-          <button
-            className="login-btn"
-            onClick={() => {
-              setLoaded(false);
-              setError("");
-              return fetchData(start, finish).then(function (result) {
-                if (result) {
-                  setRes(result);
-                } else {
-                  setRes([]);
-                  setError("Please provide valid locations");
-                }
-                setLoaded(true);
-                console.log(result);
-              });
-            }}
-          >
-            Submit
-          </button>
-        </div>
-        <div className="container__output">
-          {loaded ? <RouteOutput res={res} /> : <Spinner />}
-          {error && <p>{error}</p>}
-        </div>
+        </Autocomplete>
+        <button
+          className="login-btn"
+          onClick={() => {
+            setLoaded(false);
+            setError("");
+            return fetchData(
+              startRef.current.value,
+              finishRef.current.value
+            ).then(function (result) {
+              if (result) {
+                setRes(result);
+              } else {
+                setRes([]);
+                setError("Please provide valid locations");
+              }
+              setLoaded(true);
+              console.log(result);
+            });
+          }}
+        >
+          Submit
+        </button>
       </div>
-      <div className="map__container map__container--dashboard">
-        <Map />
+      <div className="container__output">
+        {loaded ? <RouteOutput res={res} /> : <Spinner />}
+        {error && <p>{error}</p>}
       </div>
     </div>
   );

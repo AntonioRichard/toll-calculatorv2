@@ -7,7 +7,7 @@ const RouteOutput = ({ res }) => {
   return (
     res.map(({ summary, tolls, costs }, index) => (
       <div key={index} className="route-output-container">
-        <p className="route-summary">
+        <div className="route-summary">
           <div className="route-header">
             <span className="route-index">{index + 1}</span>
             <div className="tooltip">
@@ -28,7 +28,7 @@ const RouteOutput = ({ res }) => {
               Total cost: {costs.cash || costs.tag} {tolls[0].currency}
             </p>
           )}
-        </p>
+        </div>
         {summary.hasTolls === true ? (
           tolls.map((toll, index) => (
             <p key={index} className="toll-details">

@@ -1,12 +1,19 @@
 import React, { useMemo } from "react";
-import { GoogleMap, useLoadScript } from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import Spinner from "./Spinner";
+
+const libraries = ["places"];
 
 export default function Map() {
-  const { isLoaded } = useLoadScript({
+  const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    libraries,
   });
-  if (!isLoaded) return <div>Loading...</div>;
-  return <RenderedMap />;
+  if (!isLoaded) {
+    return <Spinner />;
+  } else {
+    return <RenderedMap />;
+  }
 }
 
 function RenderedMap() {

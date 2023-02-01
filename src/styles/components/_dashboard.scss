@@ -41,16 +41,14 @@
   width: 75%;
 }
 
-#start {
-  width: 75%;
-}
-
+#start,
 #finish {
-  width: 75%;
+  // width: 75%;
+  margin-right: 200px;
 }
 
 .input-label {
-  width: 85%;
+  width: 65%;
   display: flex;
   align-items: left;
 }
