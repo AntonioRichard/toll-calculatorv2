@@ -7,7 +7,7 @@ export default class DashboardPage extends React.Component {
     return (
       <div className="wrapper">
         <RouteForm />
-        <div className="map__container map__container--dashboard">
+        <div className="map__container--dashboard">
           <Map />
         </div>
       </div>

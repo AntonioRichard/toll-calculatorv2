@@ -1,6 +1,5 @@
 .map__container {
-  width: 100%;
-  height: 50vh;
+  height: 350px;
 }
 
 .wrapper {
@@ -20,7 +19,7 @@
   display: flex;
   flex-direction: column;
   width: 45%;
-  height: 50vh;
+  height: 100%;
   align-items: center;
   justify-content: space-around;
   border-style: solid;
@@ -32,7 +31,6 @@
   display: flex;
   flex-direction: column;
   width: 90%;
-  height: 100%;
   align-items: center;
 }
 
@@ -43,7 +41,6 @@
 
 #start,
 #finish {
-  // width: 75%;
   margin-right: 200px;
 }
 
@@ -57,6 +54,11 @@
   .wrapper {
     flex-direction: column;
     justify-content: space-between;
+  }
+
+  .map__container--dashboard {
+    margin-top: 20px;
+    width: 100%;
   }
 
   .container__input {
