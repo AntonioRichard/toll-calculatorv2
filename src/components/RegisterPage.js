@@ -6,7 +6,7 @@ import RegisterForm from "./RegisterForm";
 export default class Register extends React.Component {
   usernameDuplicate = (accounts, username) => {
     let isDuplicate = false;
-
+    // eslint-disable-next-line
     accounts.map((account) => {
       if (account.username === username) {
         isDuplicate = true;
@@ -23,7 +23,7 @@ export default class Register extends React.Component {
 
   emailDuplicate = (accounts, email) => {
     let isDuplicate = false;
-
+    // eslint-disable-next-line
     accounts.map((account) => {
       if (account.email === email) {
         isDuplicate = true;

@@ -1,7 +1,8 @@
 import React from "react";
-import { BiTime, BiCoinStack } from "react-icons/bi";
+import { BiTime, BiCoinStack, BiTimer } from "react-icons/bi";
 import { RiPinDistanceLine } from "react-icons/ri";
 import { GrFavorite } from "react-icons/gr";
+import { BsPiggyBank } from "react-icons/bs";
 
 const RouteOutput = ({ res }) => {
   return (
@@ -18,6 +19,18 @@ const RouteOutput = ({ res }) => {
             </div>
           </div>
           <br />
+          {summary.diffs.fastest === 0 && (
+            <div id="route-diff">
+              <BiTimer className="icon" />
+              <p>Fastest route</p>
+            </div>
+          )}
+          {summary.diffs.cheapest === 0 && (
+            <div id="route-diff">
+              <BsPiggyBank className="icon" />
+              <p>Cheapest route</p>
+            </div>
+          )}
           <RiPinDistanceLine className="icon" />
           Distance: {summary.distance.metric} <br />
           <BiTime className="icon" />

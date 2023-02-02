@@ -11,7 +11,7 @@ export default class Login extends React.Component {
     const password = document.getElementById("password").value;
     const status = document.getElementById("errorMessage");
     let isUserRegistered = false;
-
+    // eslint-disable-next-line
     state.accounts.map((account) => {
       if (account.username === username && account.password === password) {
         isUserRegistered = true;
