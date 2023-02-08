@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
+import axios from "axios";
 import { Autocomplete, useJsApiLoader } from "@react-google-maps/api";
-import { fetchData } from "../api/fetchData";
 import RouteOutput from "./RouteOutput";
 import Spinner from "./Spinner";
 
@@ -13,6 +13,23 @@ export default function RouteForm() {
 
   const startRef = useRef("");
   const finishRef = useRef("");
+
+  const handleSubmit = async () => {
+    setLoaded(false);
+    setError("");
+    try {
+      const { data } = await axios.post("api/tolls/getTolls", {
+        origin: startRef.current.value,
+        destination: finishRef.current.value,
+      });
+      setRes(data);
+      setLoaded(true);
+    } catch (error) {
+      console.log(error);
+      setRes([]);
+      setError("Please provide valid locations");
+    }
+  };
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
@@ -44,26 +61,7 @@ export default function RouteForm() {
             ref={finishRef}
           />
         </Autocomplete>
-        <button
-          className="login-btn"
-          onClick={() => {
-            setLoaded(false);
-            setError("");
-            return fetchData(
-              startRef.current.value,
-              finishRef.current.value
-            ).then(function (result) {
-              if (result) {
-                setRes(result);
-              } else {
-                setRes([]);
-                setError("Please provide valid locations");
-              }
-              setLoaded(true);
-              console.log(result);
-            });
-          }}
-        >
+        <button className="login-btn" onClick={handleSubmit}>
           Submit
         </button>
       </div>

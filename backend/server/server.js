@@ -6,7 +6,10 @@ const port = process.env.PORT || 4000;
 const app = express();
 
 app.use(express.json());
-
+app.use((req, res, next) => {
+  console.log(req.path, req.method);
+  next();
+});
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("build"));
   app.get("*", (req, res) => {
