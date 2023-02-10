@@ -50,6 +50,27 @@
   align-items: left;
 }
 
+// directions panel
+.adp-placemark,
+.adp-directions,
+.adp-summary,
+.adp-legal {
+  display: none;
+}
+
+.adp-listinfo {
+}
+
+#directionsPanel {
+  position: absolute;
+  width: 40%;
+}
+
+.adp-listheader {
+  display: flex;
+  justify-content: center;
+}
+
 @media only screen and (max-width: $breakpoint) {
   .wrapper {
     flex-direction: column;

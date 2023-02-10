@@ -6,7 +6,7 @@ import Spinner from "./Spinner";
 
 const libraries = ["places"];
 
-export default function RouteForm() {
+export default function RouteForm({ getDirections }) {
   const [res, setRes] = useState([]);
   const [loaded, setLoaded] = useState(true);
   const [error, setError] = useState("");
@@ -24,6 +24,8 @@ export default function RouteForm() {
       });
       setRes(data);
       setLoaded(true);
+      getDirections(startRef.current.value, finishRef.current.value);
+      console.log(data);
     } catch (error) {
       console.log(error);
       setRes([]);
