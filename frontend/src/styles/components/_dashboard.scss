@@ -50,25 +50,26 @@
   align-items: left;
 }
 
-// directions panel
-.adp-placemark,
-.adp-directions,
-.adp-summary,
-.adp-legal {
-  display: none;
-}
-
-.adp-listinfo {
-}
-
-#directionsPanel {
+.alternative-routes {
   position: absolute;
+  height: 40px;
   width: 40%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
-.adp-listheader {
-  display: flex;
-  justify-content: center;
+.route {
+  width: 100%;
+  font-weight: 700;
+  font-size: 18px;
+  border: 1px solid black;
+  background-color: rgb(247, 245, 245);
+}
+
+.route:hover {
+  transition: 0.2s ease;
+  box-shadow: 5px 2px 5px rgba(0, 0, 0, 0.39);
 }
 
 @media only screen and (max-width: $breakpoint) {

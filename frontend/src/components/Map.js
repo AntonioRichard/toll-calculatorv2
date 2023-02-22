@@ -1,9 +1,10 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
-  GoogleMap,
   DirectionsRenderer,
+  GoogleMap,
   useJsApiLoader,
 } from "@react-google-maps/api";
+import { vignetteCountries } from "../static/vignetteCountries";
 import Spinner from "./Spinner";
 
 const libraries = ["places"];
@@ -22,26 +23,42 @@ export default function Map({ origin, destination }) {
 
 function RenderedMap({ origin, destination }) {
   const [directions, setDirections] = useState({});
+  const [routeIndex, setRouteIndex] = useState(0);
   const center = useMemo(() => ({ lat: 45.7, lng: 21.2 }), []);
 
   useEffect(() => {
-    async function calculateRoute() {
+    (async () => {
       if (origin === "" || destination === "") {
         return;
       }
       // eslint-disable-next-line no-undef
       const directionsService = new google.maps.DirectionsService();
-      const route = await directionsService.route({
+      const directionsResult = await directionsService.route({
         origin,
         destination,
         // eslint-disable-next-line no-undef
         travelMode: google.maps.TravelMode.DRIVING,
         provideRouteAlternatives: true,
       });
-      setDirections(route);
-    }
-    calculateRoute();
+      console.log(directionsResult.routes);
+      setDirections(directionsResult);
+    })();
   }, [origin, destination]);
+
+  useEffect(() => {
+    let onRouteVignettes = [];
+    if (directions.routes) {
+      const countriesOnRoute = getCountriesOnRoute(
+        directions.routes[routeIndex]
+      );
+      vignetteCountries.map((country) => {
+        if (countriesOnRoute.includes(country.countryName)) {
+          onRouteVignettes.push(country);
+        }
+      });
+    }
+    console.log(onRouteVignettes);
+  }, [routeIndex, directions]);
 
   return (
     <div>
@@ -52,10 +69,26 @@ function RenderedMap({ origin, destination }) {
       >
         <DirectionsRenderer
           directions={directions}
-          panel={document.getElementById("directionsPanel")}
+          options={{ draggable: false, routeIndex }}
         />
       </GoogleMap>
-      <div id="directionsPanel"></div>
+      <div className="alternative-routes">
+        {directions.routes?.map((route, idx) => (
+          <button onClick={() => setRouteIndex(idx)} className="route">
+            {idx + 1}
+          </button>
+        ))}
+      </div>
     </div>
   );
+}
+function getCountriesOnRoute(route) {
+  let countries = [];
+  route.legs[0].steps.map((step) => {
+    if (step.instructions.includes("Entering")) {
+      const country = step.instructions.split(" ").pop().slice(0, -6);
+      countries.push(country);
+    }
+  });
+  return countries;
 }
