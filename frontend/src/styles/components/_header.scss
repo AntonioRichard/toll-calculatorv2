@@ -1,16 +1,15 @@
 $content-width: 100rem;
-$nav-background: #fff;
-$nav-font-color: #0c0c0c;
-$link-hover-color: $light-blue;
+$nav-font-color: #fff;
 
 .navigation {
   position: fixed;
   top: 0;
   width: 100%;
   height: $nav-height;
-  background: $nav-background;
+  background: $rich-black;
   border: 0;
   box-shadow: 0 0.05em 1em darken($blue, 10%);
+  z-index: 1;
 }
 
 .nav-container {
@@ -35,7 +34,7 @@ $link-hover-color: $light-blue;
 .btn-logout {
   all: unset;
   cursor: pointer;
-  background: $nav-background;
+  background: $rich-black;
   width: 80%;
   padding: 1rem 2rem 2rem 2rem;
   color: $nav-font-color;
@@ -44,7 +43,7 @@ $link-hover-color: $light-blue;
     height: 0.5rem;
     content: "";
     position: absolute;
-    background-color: $link-hover-color;
+    background-color: $jordy-blue;
     width: 0%;
     bottom: 0px;
   }
@@ -66,7 +65,7 @@ nav {
         display: block;
         padding: 1rem 2rem 0 2rem;
         line-height: 5rem;
-        background: $nav-background;
+        background: $rich-black;
         color: $nav-font-color;
         text-decoration: none;
 
@@ -75,7 +74,7 @@ nav {
           height: 0.5rem;
           content: "";
           position: absolute;
-          background-color: $link-hover-color;
+          background-color: $jordy-blue;
           width: 0%;
           bottom: 0px;
         }
@@ -104,7 +103,7 @@ nav {
   position: absolute;
   top: 0;
   right: 0;
-  background: $nav-background;
+  background: $rich-black;
   height: $nav-height;
   width: $nav-height;
 }
@@ -177,7 +176,7 @@ li.dropdown {
     border-radius: 1px;
     height: 0.5rem;
     width: 3.5rem;
-    background: $link-hover-color;
+    background: $nav-font-color;
     position: absolute;
     display: block;
     content: "";

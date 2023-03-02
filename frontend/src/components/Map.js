@@ -9,9 +9,8 @@ import {
 import { vignetteCountries } from "../utils/vignetteCountries";
 import Spinner from "./Spinner";
 
-const libraries = ["places"];
-
 export default function Map({ origin, destination }) {
+  const [libraries] = useState(["places"]);
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
@@ -28,7 +27,7 @@ function RenderedMap({ origin, destination }) {
   const [routeIndex, setRouteIndex] = useState(0);
   const [vignetteMarkers, setVignetteMarks] = useState([]);
   const [infoVisible, setInfoVisible] = useState(false);
-  const center = useMemo(() => ({ lat: 45.7, lng: 21.2 }), []);
+  const center = useMemo(() => ({ lat: 48.624194, lng: 13.529816 }), []);
 
   useEffect(() => {
     (async () => {
@@ -44,6 +43,7 @@ function RenderedMap({ origin, destination }) {
         travelMode: google.maps.TravelMode.DRIVING,
         provideRouteAlternatives: true,
       });
+      console.log(directionsResult);
       setDirections(directionsResult);
     })();
   }, [origin, destination]);
@@ -54,7 +54,7 @@ function RenderedMap({ origin, destination }) {
       const countriesOnRoute = getCountriesOnRoute(
         directions.routes[routeIndex]
       );
-      vignetteCountries.map((country) => {
+      vignetteCountries.forEach((country) => {
         if (countriesOnRoute.includes(country.countryName)) {
           vignettes.push(country);
         }
@@ -63,42 +63,55 @@ function RenderedMap({ origin, destination }) {
     }
   }, [routeIndex, directions]);
 
+  function getCountriesOnRoute(route) {
+    let countries = [];
+    route.legs[0].steps.forEach((step) => {
+      if (step.instructions.includes("Entering")) {
+        const country = step.instructions.split(" ").pop().slice(0, -6);
+        countries.push(country);
+      }
+    });
+    return countries;
+  }
+
   return (
-    <div>
-      <GoogleMap
-        zoom={4}
-        center={center}
-        mapContainerClassName="map__container"
-      >
-        <DirectionsRenderer
-          directions={directions}
-          options={{ draggable: false, routeIndex }}
-        />
-        {vignetteMarkers.length > 0 &&
-          vignetteMarkers.map((marker, idx) => (
-            <Marker
-              key={idx}
-              position={marker.markerCoordinates}
-              clickable={true}
-              label={{
-                text: "V",
-                fontWeight: "600",
-                fontSize: "16px",
-                color: "yellow",
-              }}
-              onClick={() => setInfoVisible(!infoVisible)}
-            >
-              {infoVisible && (
-                <InfoWindow
-                  position={marker.markerCoordinates}
-                  onCloseClick={() => setInfoVisible(!infoVisible)}
-                >
-                  <div>{`${marker.duration[0]} - ${marker.costs[0]}`}</div>
-                </InfoWindow>
-              )}
-            </Marker>
-          ))}
-      </GoogleMap>
+    <GoogleMap
+      // * options={{ mapId: "c05739993adc7251" }} mapId for custom map style
+      zoom={6}
+      center={center}
+      mapContainerClassName="map__container"
+    >
+      <DirectionsRenderer
+        directions={directions}
+        options={{ draggable: false, routeIndex }}
+      />
+      {vignetteMarkers.length > 0 &&
+        vignetteMarkers.map((marker, idx) => (
+          <Marker
+            key={idx}
+            position={marker.markerCoordinates}
+            clickable={true}
+            label={{
+              text: "V",
+              fontWeight: "600",
+              fontSize: "16px",
+              color: "yellow",
+            }}
+            onClick={() => setInfoVisible(!infoVisible)}
+          >
+            {infoVisible && (
+              <InfoWindow
+                position={marker.markerCoordinates}
+                onCloseClick={() => setInfoVisible(!infoVisible)}
+              >
+                <div>
+                  <h4 className="bottom-margin">Vignette</h4>
+                  {`${marker.duration[0]} - ${marker.costs[0]}`}
+                </div>
+              </InfoWindow>
+            )}
+          </Marker>
+        ))}
       <div className="alternative-routes">
         {directions.routes?.map((route, idx) => (
           <button
@@ -110,17 +123,6 @@ function RenderedMap({ origin, destination }) {
           </button>
         ))}
       </div>
-    </div>
+    </GoogleMap>
   );
-}
-
-function getCountriesOnRoute(route) {
-  let countries = [];
-  route.legs[0].steps.map((step) => {
-    if (step.instructions.includes("Entering")) {
-      const country = step.instructions.split(" ").pop().slice(0, -6);
-      countries.push(country);
-    }
-  });
-  return countries;
 }

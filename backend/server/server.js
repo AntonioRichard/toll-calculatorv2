@@ -1,6 +1,6 @@
 const path = require("path");
 const express = require("express");
-const tollRoutes = require("../routes/tolls");
+const tollRoutes = require("../routes/tollRoutes");
 const port = process.env.PORT || 4000;
 
 const app = express();

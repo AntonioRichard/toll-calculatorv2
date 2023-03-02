@@ -47,7 +47,7 @@ input {
 .login-btn {
   width: 40%;
   height: 3em;
-  background-color: lighten($blue, 30%);
+  background-color: lighten($rich-black, 5%);
   margin-top: 1rem;
   margin-bottom: 0.5rem;
   display: flex;
@@ -56,8 +56,7 @@ input {
   transition: 0.5s;
   border-radius: $s-border-radius;
   border-style: none;
-  cursor: pointer;
-  font-weight: bold;
+  color: #fff;
 
   &:hover {
     transform: scale(1.1);

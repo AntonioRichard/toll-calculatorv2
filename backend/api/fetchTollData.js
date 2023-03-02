@@ -2,7 +2,7 @@ require("dotenv").config();
 const axios = require("axios");
 const url = "https://dev.TollGuru.com/v1/calc/gmaps";
 
-const fetchData = async (origin, destination) => {
+const fetchTollData = async (origin, destination) => {
   if (origin && destination !== "")
     try {
       const { data } = await axios.post(
@@ -27,4 +27,4 @@ const fetchData = async (origin, destination) => {
     }
 };
 
-module.exports = fetchData;
+module.exports = fetchTollData;
