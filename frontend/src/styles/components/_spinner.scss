@@ -1,0 +1,21 @@
+.spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 5rem 0 0 0;
+  height: 100%;
+  width: 100%;
+}
+
+.spinner__image {
+  height: 14rem;
+  width: 16rem;
+  padding: 0;
+}
+
+.spinner-message {
+  margin-top: -20px;
+  font-style: italic;
+  color: $champagne;
+}

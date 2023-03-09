@@ -14,9 +14,7 @@ function DashboardPage() {
   return (
     <div className="wrapper">
       <RouteForm getDirections={getDirections} />
-      <div className="map__container--dashboard">
-        <Map origin={origin} destination={destination} />
-      </div>
+      <Map origin={origin} destination={destination} />
     </div>
   );
 }

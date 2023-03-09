@@ -17,7 +17,7 @@ const Header = ({ startLogout, user }) => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         store.dispatch(login(user.uid, user.displayName));
-        console.log(user.displayName);
+        console.log("User uid: " + user.uid);
       } else {
         store.dispatch(logout());
         console.log("logged out");
@@ -61,9 +61,6 @@ const Header = ({ startLogout, user }) => {
                 </NavLink>
               </li>
               {user.displayName ? (
-                // <button className="btn-logout" onClick={startLogout}>
-                //   {user.displayName}
-                // </button>
                 <li className="dropdown">
                   <NavLink id="nav-link">{user.displayName}</NavLink>
 

@@ -44,29 +44,27 @@ export default function RouteForm({ getDirections }) {
 
   return (
     <div className="container__input">
-      <div className="container__inputbox">
-        <p className="input-label">Origin</p>
-        <Autocomplete>
-          <input
-            type="text"
-            placeholder="Starting point"
-            id="start"
-            ref={startRef}
-          />
-        </Autocomplete>
-        <p className="input-label">Destination</p>
-        <Autocomplete>
-          <input
-            type="text"
-            placeholder="Destination"
-            id="finish"
-            ref={finishRef}
-          />
-        </Autocomplete>
-        <button className="login-btn" onClick={handleSubmit}>
-          Submit
-        </button>
-      </div>
+      <p className="input-label">Origin</p>
+      <Autocomplete>
+        <input
+          type="text"
+          placeholder="Starting point"
+          id="start"
+          ref={startRef}
+        />
+      </Autocomplete>
+      <p className="input-label">Destination</p>
+      <Autocomplete>
+        <input
+          type="text"
+          placeholder="Destination"
+          id="finish"
+          ref={finishRef}
+        />
+      </Autocomplete>
+      <button className="login-btn" onClick={handleSubmit}>
+        Submit
+      </button>
       <div className="container__output">
         {loaded ? <RouteOutput res={res} /> : <Spinner />}
         {error && <p>{error}</p>}

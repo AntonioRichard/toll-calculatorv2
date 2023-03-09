@@ -1,7 +1,6 @@
 import React from "react";
 import { BiTime, BiCoinStack, BiTimer } from "react-icons/bi";
-import { RiPinDistanceLine } from "react-icons/ri";
-import { GrFavorite } from "react-icons/gr";
+import { RiPinDistanceLine, RiHeartLine } from "react-icons/ri";
 import { BsPiggyBank } from "react-icons/bs";
 
 const RouteOutput = ({ res }) => {
@@ -10,11 +9,11 @@ const RouteOutput = ({ res }) => {
       <div key={index} className="route-output-container">
         <div className="route-summary">
           <div className="route-header">
-            <span className="route-index">{index + 1}</span>
+            <span className="route-index">Route {index + 1}</span>
             <div className="tooltip">
               <button className="add-fav">
                 <span className="tooltiptext">Add route to favorites</span>
-                <GrFavorite />
+                <RiHeartLine className="icon" />
               </button>
             </div>
           </div>
@@ -22,13 +21,13 @@ const RouteOutput = ({ res }) => {
           {summary.diffs.fastest === 0 && (
             <div id="route-diff">
               <BiTimer className="icon" />
-              <p>Fastest route</p>
+              <p>Fastest</p>
             </div>
           )}
           {summary.diffs.cheapest === 0 && (
             <div id="route-diff">
               <BsPiggyBank className="icon" />
-              <p>Cheapest route</p>
+              <p>Cheapest</p>
             </div>
           )}
           <RiPinDistanceLine className="icon" />

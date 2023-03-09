@@ -1,8 +1,8 @@
 import React from "react";
 
 const Spinner = () => (
-  <div className="loader">
-    <img className="loader__image" src="images/spinner.gif" alt="" />
+  <div className="spinner">
+    <img className="spinner__image" src="images/bluespinner.gif" alt="" />
     <p className="spinner-message">Loading...</p>
   </div>
 );

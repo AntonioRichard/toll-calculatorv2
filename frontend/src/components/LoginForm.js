@@ -4,8 +4,7 @@ import { startLoginWithGoogle } from "../actions/auth";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { FiLock } from "react-icons/fi";
+import { FiLock, FiUser } from "react-icons/fi";
 
 const LoginForm = ({ handleLogin, startLoginWithGoogle }) => (
   <div>
@@ -13,7 +12,7 @@ const LoginForm = ({ handleLogin, startLoginWithGoogle }) => (
       <div className="container">
         <h1>Login</h1>
         <div className="container__label">
-          <FontAwesomeIcon icon={faUser} className="icon" />
+          <FiUser className="icon" />
           <p>Username</p>
         </div>
         <input

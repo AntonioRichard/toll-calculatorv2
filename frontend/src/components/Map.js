@@ -45,6 +45,7 @@ function RenderedMap({ origin, destination }) {
       });
       console.log(directionsResult);
       setDirections(directionsResult);
+      setRouteIndex(0);
     })();
   }, [origin, destination]);
 
@@ -80,6 +81,7 @@ function RenderedMap({ origin, destination }) {
       zoom={6}
       center={center}
       mapContainerClassName="map__container"
+      options={{ minZoom: 4 }}
     >
       <DirectionsRenderer
         directions={directions}
@@ -117,7 +119,7 @@ function RenderedMap({ origin, destination }) {
           <button
             key={idx}
             onClick={() => setRouteIndex(idx)}
-            className="route"
+            className={`route ${idx === routeIndex && "active-route"}`}
           >
             {idx + 1}
           </button>
