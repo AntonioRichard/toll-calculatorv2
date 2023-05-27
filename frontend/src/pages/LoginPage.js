@@ -1,6 +1,6 @@
 import React from "react";
 import { store } from "..";
-import LoginForm from "./LoginForm";
+import LoginForm from "../components/LoginForm";
 
 export default class Login extends React.Component {
   handleLogin = (e) => {

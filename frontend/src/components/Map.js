@@ -6,7 +6,7 @@ import {
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
-import { vignetteCountries } from "../utils/vignetteCountries";
+import axios from "axios";
 import Spinner from "./Spinner";
 
 export default function Map({ origin, destination }) {
@@ -25,7 +25,7 @@ export default function Map({ origin, destination }) {
 function RenderedMap({ origin, destination }) {
   const [directions, setDirections] = useState({});
   const [routeIndex, setRouteIndex] = useState(0);
-  const [vignetteMarkers, setVignetteMarks] = useState([]);
+  const [vignetteMarkers, setVignetteMarkers] = useState([]);
   const [infoVisible, setInfoVisible] = useState(false);
   const center = useMemo(() => ({ lat: 48.624194, lng: 13.529816 }), []);
 
@@ -43,6 +43,7 @@ function RenderedMap({ origin, destination }) {
         travelMode: google.maps.TravelMode.DRIVING,
         provideRouteAlternatives: true,
       });
+
       console.log(directionsResult);
       setDirections(directionsResult);
       setRouteIndex(0);
@@ -50,30 +51,17 @@ function RenderedMap({ origin, destination }) {
   }, [origin, destination]);
 
   useEffect(() => {
-    let vignettes = [];
-    if (directions.routes) {
-      const countriesOnRoute = getCountriesOnRoute(
-        directions.routes[routeIndex]
-      );
-      vignetteCountries.forEach((country) => {
-        if (countriesOnRoute.includes(country.countryName)) {
-          vignettes.push(country);
-        }
-      });
-      setVignetteMarks(vignettes);
-    }
-  }, [routeIndex, directions]);
+    (async () => {
+      if (directions.routes) {
+        const { data } = await axios.post("api/tolls/searchVignettes", {
+          routes: directions.routes,
+        });
 
-  function getCountriesOnRoute(route) {
-    let countries = [];
-    route.legs[0].steps.forEach((step) => {
-      if (step.instructions.includes("Entering")) {
-        const country = step.instructions.split(" ").pop().slice(0, -6);
-        countries.push(country);
+        console.log(data);
+        setVignetteMarkers(data);
       }
-    });
-    return countries;
-  }
+    })();
+  }, [directions]);
 
   return (
     <GoogleMap
@@ -83,13 +71,11 @@ function RenderedMap({ origin, destination }) {
       mapContainerClassName="map__container"
       options={{ minZoom: 4 }}
     >
-      <DirectionsRenderer
-        directions={directions}
-        options={{ draggable: false, routeIndex }}
-      />
+      <DirectionsRenderer directions={directions} options={{ routeIndex }} />
       {vignetteMarkers.length > 0 &&
-        vignetteMarkers.map((marker, idx) => (
+        vignetteMarkers[routeIndex].map((marker, idx) => (
           <Marker
+            title="Vignette tax"
             key={idx}
             position={marker.markerCoordinates}
             clickable={true}
@@ -100,6 +86,7 @@ function RenderedMap({ origin, destination }) {
               color: "yellow",
             }}
             onClick={() => setInfoVisible(!infoVisible)}
+            // icon={"http://maps.google.com/mapfiles/markerV.png"}
           >
             {infoVisible && (
               <InfoWindow
@@ -107,8 +94,10 @@ function RenderedMap({ origin, destination }) {
                 onCloseClick={() => setInfoVisible(!infoVisible)}
               >
                 <div>
-                  <h4 className="bottom-margin">Vignette</h4>
-                  {`${marker.duration[0]} - ${marker.costs[0]}`}
+                  <h4 className="bottom-margin">
+                    {marker.countryName} Vignette
+                  </h4>
+                  {`${marker.duration} - ${marker.costs}€`}
                 </div>
               </InfoWindow>
             )}

@@ -14,6 +14,9 @@ const fetchTollData = async (origin, destination) => {
           to: {
             address: destination,
           },
+          units: {
+            currencyUnit: "USD",
+          },
         },
         {
           headers: {
@@ -21,9 +24,12 @@ const fetchTollData = async (origin, destination) => {
           },
         }
       );
+      data.routes.forEach((route) => {
+        route.rates = data.summary.rates.EUR;
+      });
       return data.routes;
     } catch (error) {
-      console.log(error.response);
+      return error;
     }
 };
 

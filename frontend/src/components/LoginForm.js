@@ -6,60 +6,62 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FiLock, FiUser } from "react-icons/fi";
 
-const LoginForm = ({ handleLogin, startLoginWithGoogle }) => (
-  <div>
-    <form>
-      <div className="container">
-        <h1>Login</h1>
-        <div className="container__label">
-          <FiUser className="icon" />
-          <p>Username</p>
-        </div>
-        <input
-          type="text"
-          placeholder="Enter Username"
-          id="username"
-          required
-        />
-        <div className="container__label">
-          <FiLock className="icon" />
-          <p>Password</p>
-        </div>
-        <input
-          type="password"
-          placeholder="Enter Password"
-          id="password"
-          required
-        />
-        <p id="errorMessage"></p>
-        <button className="login-btn" type="submit" onClick={handleLogin}>
-          Login
-        </button>
-        <button
-          onClick={startLoginWithGoogle}
-          className="login-btn login-btn--google"
-        >
-          <FontAwesomeIcon
-            icon={faGoogle}
-            size="sm"
-            className="icon icon--google"
+const LoginForm = ({ handleLogin, startLoginWithGoogle }) => {
+  return (
+    <div>
+      <form>
+        <div className="container">
+          <h1>Login</h1>
+          <div className="container__label">
+            <FiUser className="icon" />
+            <p>Username</p>
+          </div>
+          <input
+            type="text"
+            placeholder="Enter Username"
+            id="username"
+            required
           />
-          Login with Google
-        </button>
-        <Link className="login__a" href="#">
-          Forgot password?
-        </Link>
-        <p>
-          Not registered yet?
-          <Link className="login__a" to="/register">
-            {" "}
-            Sign up now
+          <div className="container__label">
+            <FiLock className="icon" />
+            <p>Password</p>
+          </div>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            id="password"
+            required
+          />
+          <p id="errorMessage"></p>
+          <button className="login-btn" type="submit" onClick={handleLogin}>
+            Login
+          </button>
+          <button
+            onClick={startLoginWithGoogle}
+            className="login-btn login-btn--google"
+          >
+            <FontAwesomeIcon
+              icon={faGoogle}
+              size="sm"
+              className="icon icon--google"
+            />
+            Login with Google
+          </button>
+          <Link className="login__a" href="#">
+            Forgot password?
           </Link>
-        </p>
-      </div>
-    </form>
-  </div>
-);
+          <p>
+            Not registered yet?
+            <Link className="login__a" to="/register">
+              {" "}
+              Sign up now
+            </Link>
+          </p>
+        </div>
+      </form>
+    </div>
+  );
+};
 
 const mapDispatchToProps = (dispatch) => ({
   startLoginWithGoogle: () => dispatch(startLoginWithGoogle()),

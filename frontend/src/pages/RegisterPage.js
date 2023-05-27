@@ -1,7 +1,7 @@
 import React from "react";
 import { addAccount } from "../actions/accounts";
 import { store } from "..";
-import RegisterForm from "./RegisterForm";
+import RegisterForm from "../components/RegisterForm";
 
 export default class Register extends React.Component {
   usernameDuplicate = (accounts, username) => {

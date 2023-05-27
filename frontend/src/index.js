@@ -5,6 +5,7 @@ import configureStore from "./store/configureStore";
 import { Provider } from "react-redux";
 import "normalize.css/normalize.css";
 import "./styles/styles.scss";
+import "./firebase/firebase";
 
 export const store = configureStore();
 

@@ -1,14 +1,18 @@
 import React, { useState } from "react";
-import RouteForm from "./RouteForm";
-import Map from "./Map";
+import RouteForm from "../components/RouteForm";
+import Map from "../components/Map";
 
 function DashboardPage() {
   const [origin, setOrigin] = useState("");
   const [destination, setDestination] = useState("");
 
   const getDirections = (origin, destination) => {
-    setOrigin(origin);
-    setDestination(destination);
+    return new Promise((resolve, reject) => {
+      setOrigin(origin);
+      setDestination(destination);
+
+      resolve();
+    });
   };
 
   return (

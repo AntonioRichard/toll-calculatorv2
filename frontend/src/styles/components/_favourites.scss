@@ -1,13 +1,133 @@
 .fav-wrapper {
   display: flex;
   justify-content: center;
+  flex-direction: row;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
 }
 
 .fav-unavailable {
   font-size: 2.6rem;
   font-style: italic;
   color: lighten($blue, 40%);
+}
+
+.routes-container {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(400px, 1fr));
+  grid-gap: 40px 20px;
+  padding: 30px;
+}
+
+.cell {
+  border: 3px solid $jordy-blue;
+  background-color: $sand-white;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.cell p {
+  margin-left: 10px;
+}
+
+.cell span {
+  font-weight: 600;
+}
+
+.cell-header {
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.delete-button {
+  position: relative;
+  top: -60px;
+  margin-bottom: -1400px;
+  left: -10px;
+  float: right;
+  margin-left: 100px;
+  font-size: 30px;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: 0.1s;
+
+  &:hover {
+    transform: scale(1.2);
+    background-color: $bittersweet;
+  }
+}
+
+.modal,
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.overlay {
+  background: rgba(49, 49, 49, 0.2);
+}
+
+.modal-content {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1.4;
+  background: #f1f1f1;
+  padding: 20px 36px;
+  border-radius: 10px;
+  max-width: 500px;
+  min-width: 200px;
+}
+
+.selected-route {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.buttons-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.modal-button {
+  font-size: 24px;
+  border: solid 1px black;
+  border-radius: 5px;
+  transition: 0.1s;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+.cell-footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.route-link {
+  color: #1d84b5;
+  font-style: italic;
+  margin-left: 2px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+  }
 }

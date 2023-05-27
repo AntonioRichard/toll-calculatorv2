@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { firebase } from "../firebase/firebase";
+import database, { firebase } from "../firebase/firebase";
 import { login, logout } from "../actions/auth";
 import { startLogout } from "../actions/auth";
 import { connect } from "react-redux";
@@ -8,6 +8,7 @@ import { store } from "..";
 
 const Header = ({ startLogout, user }) => {
   const [navbar, setNavbar] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
 
   const handleToggle = () => {
     setNavbar(!navbar);
@@ -16,9 +17,13 @@ const Header = ({ startLogout, user }) => {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        store.dispatch(login(user.uid, user.displayName));
-        console.log("User uid: " + user.uid);
+        setAuthenticated(true);
+        store.dispatch(login(user.uid, user.displayName, user.photoURL));
+        database
+          .ref(`users/${user.uid}`)
+          .update({ username: user.displayName });
       } else {
+        setAuthenticated(false);
         store.dispatch(logout());
         console.log("logged out");
       }
@@ -56,13 +61,22 @@ const Header = ({ startLogout, user }) => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/favourites" id="nav-link">
+                <NavLink to="/favorites" id="nav-link">
                   Favorites
                 </NavLink>
               </li>
-              {user.displayName ? (
+              {authenticated ? (
                 <li className="dropdown">
-                  <NavLink id="nav-link">{user.displayName}</NavLink>
+                  <NavLink id="nav-link">
+                    {user.photoURL && (
+                      <img
+                        src={user.photoURL}
+                        className="profile-picture"
+                        alt=""
+                      />
+                    )}
+                    {user.displayName}
+                  </NavLink>
 
                   <ul className="nav-dropdown">
                     <li>

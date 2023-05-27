@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import DashboardPage from "../components/DashboardPage";
-import FavoritesPage from "../components/FavoritesPage";
-import LoginPage from "../components/LoginPage";
-import RegisterPage from "../components/RegisterPage";
-import ContactPage from "../components/ContactPage";
+import DashboardPage from "../pages/DashboardPage";
+import FavoritesPage from "../pages/FavoritesPage";
+import LoginPage from "../pages/LoginPage";
+import RegisterPage from "../pages/RegisterPage";
+import ContactPage from "../pages/ContactPage";
 import Header from "../components/Header";
-import NotFoundPage from "../components/NotFoundPage";
+import NotFoundPage from "../pages/NotFoundPage";
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -14,7 +14,7 @@ const AppRouter = () => (
       <Header />
       <Routes>
         <Route path="/" element={<DashboardPage />} exact={true} />
-        <Route path="/favourites" element={<FavoritesPage />} />
+        <Route path="/favorites" element={<FavoritesPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/contact" element={ContactPage()} />
         <Route path="/register" element={<RegisterPage />} />

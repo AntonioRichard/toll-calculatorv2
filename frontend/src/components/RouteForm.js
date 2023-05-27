@@ -13,24 +13,47 @@ export default function RouteForm({ getDirections }) {
 
   const startRef = useRef("");
   const finishRef = useRef("");
+  const output = useRef();
 
   const handleSubmit = async () => {
+    output.current.scrollIntoView({ behavior: "smooth" });
     setLoaded(false);
     setError("");
-    try {
-      const { data } = await axios.post("api/tolls/getTolls", {
-        origin: startRef.current.value,
-        destination: finishRef.current.value,
-      });
-      setRes(data);
-      setLoaded(true);
-      getDirections(startRef.current.value, finishRef.current.value);
-      console.log(data);
-    } catch (error) {
-      console.log(error);
+
+    if (startRef.current.value === "" || finishRef.current.value === "") {
       setRes([]);
-      setError("Please provide valid locations");
+      setError("Please fill every field");
+      setLoaded(true);
+      return;
     }
+
+    getDirections(startRef.current.value, finishRef.current.value).then(
+      async () => {
+        const { data } = await axios.post("api/tolls/route", {
+          origin: startRef.current.value,
+          destination: finishRef.current.value,
+        });
+
+        if (data) {
+          switch (data.status) {
+            case 400:
+              setRes([]);
+              setError("Please provide valid locations");
+              break;
+            case 403:
+              setRes([]);
+              setError("A server error occured");
+              break;
+            default:
+              setRes(data);
+              break;
+          }
+        }
+        setLoaded(true);
+      }
+    );
+
+    console.log(res);
   };
 
   const { isLoaded } = useJsApiLoader({
@@ -65,9 +88,17 @@ export default function RouteForm({ getDirections }) {
       <button className="login-btn" onClick={handleSubmit}>
         Submit
       </button>
-      <div className="container__output">
-        {loaded ? <RouteOutput res={res} /> : <Spinner />}
-        {error && <p>{error}</p>}
+      <div className="container__output" ref={output}>
+        {loaded ? (
+          <RouteOutput
+            res={res}
+            error={error}
+            origin={startRef.current.value}
+            destination={finishRef.current.value}
+          />
+        ) : (
+          <Spinner />
+        )}
       </div>
     </div>
   );

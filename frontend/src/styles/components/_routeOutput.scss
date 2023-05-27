@@ -45,6 +45,11 @@
   display: inline-block;
 }
 
+.small-text {
+  font-size: 11px;
+  font-style: italic;
+}
+
 .tooltip .tooltiptext {
   visibility: hidden;
   width: 100px;
@@ -85,4 +90,8 @@
   align-items: center;
   justify-content: center;
   font-style: italic;
+}
+
+#authenticationError {
+  color: $bittersweet;
 }

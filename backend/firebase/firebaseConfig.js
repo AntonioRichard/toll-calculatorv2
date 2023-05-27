@@ -1,9 +1,7 @@
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/database";
-import "firebase/compat/storage";
+const firebase = require("firebase/compat/app");
+require("firebase/compat/database");
 
-const config = {
+const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
   databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
@@ -13,10 +11,8 @@ const config = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
-firebase.initializeApp(config);
+firebase.initializeApp(firebaseConfig);
 
-const database = firebase.database();
+const db = firebase.database();
 
-const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-
-export { firebase, googleAuthProvider, database as default };
+module.exports = db;
