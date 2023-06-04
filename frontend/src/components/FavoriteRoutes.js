@@ -1,26 +1,41 @@
 import React, { useState, useEffect } from "react";
 import { MdDelete } from "react-icons/md";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
 const FavoriteRoutes = ({ uid }) => {
   const [routes, setRoutes] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [deleteRoute, setDeleteRoute] = useState(null);
-  const [reloadRoutes, setReloadRoutes] = useState(false);
 
   useEffect(() => {
-    (async () => {
-      const { data } = await axios.get("api/tolls/favorites", {
-        headers: {
-          "Content-Type": "application/json",
-          uid,
-        },
-      });
-      if (data) {
-        setRoutes(data);
-      }
-    })();
-  }, [reloadRoutes]);
+    fetchFavorites();
+  }, []);
+
+  const notifySuccess = () =>
+    toast.success("Successfully removed the route!", {
+      position: "top-center",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  const notifyFail = () => toast("Error while deleteing the route");
+
+  const fetchFavorites = async () => {
+    const { data } = await axios.get("api/tolls/favorites", {
+      headers: {
+        "Content-Type": "application/json",
+        uid,
+      },
+    });
+
+    data ? setRoutes(data) : setRoutes(null);
+  };
 
   const handleDeleteButton = (route) => {
     setDeleteRoute(route);
@@ -35,7 +50,14 @@ const FavoriteRoutes = ({ uid }) => {
           uid,
         },
       })
-      .then(setReloadRoutes(true));
+      .then(() => {
+        fetchFavorites();
+        setShowModal(false);
+        notifySuccess();
+      })
+      .catch((error) => {
+        notifyFail();
+      });
   };
 
   const handleCancelDelete = () => {
@@ -44,7 +66,7 @@ const FavoriteRoutes = ({ uid }) => {
 
   return (
     <div className="routes-container">
-      {routes &&
+      {routes ? (
         Object.keys(routes).map((routeKey) => {
           const route = routes[routeKey];
           return (
@@ -99,7 +121,13 @@ const FavoriteRoutes = ({ uid }) => {
               )}
             </div>
           );
-        })}
+        })
+      ) : (
+        <div className="unavailable-wrapper">
+          <span className="fav-unavailable">No saved routes</span>
+        </div>
+      )}
+      <ToastContainer />
     </div>
   );
 };

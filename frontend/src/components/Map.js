@@ -44,7 +44,6 @@ function RenderedMap({ origin, destination }) {
         provideRouteAlternatives: true,
       });
 
-      console.log(directionsResult);
       setDirections(directionsResult);
       setRouteIndex(0);
     })();
@@ -57,7 +56,6 @@ function RenderedMap({ origin, destination }) {
           routes: directions.routes,
         });
 
-        console.log(data);
         setVignetteMarkers(data);
       }
     })();
@@ -65,7 +63,6 @@ function RenderedMap({ origin, destination }) {
 
   return (
     <GoogleMap
-      // * options={{ mapId: "c05739993adc7251" }} mapId for custom map style
       zoom={6}
       center={center}
       mapContainerClassName="map__container"
@@ -86,7 +83,6 @@ function RenderedMap({ origin, destination }) {
               color: "yellow",
             }}
             onClick={() => setInfoVisible(!infoVisible)}
-            // icon={"http://maps.google.com/mapfiles/markerV.png"}
           >
             {infoVisible && (
               <InfoWindow

@@ -139,9 +139,10 @@ const removeFromFavorites = async (req, res) => {
     .remove()
     .then(() => {
       console.log("route deleted");
+      res.status(200).send("Route succesfully deleted");
     })
     .catch((error) => {
-      console.error(error);
+      res.status(500).send(error);
     });
 };
 

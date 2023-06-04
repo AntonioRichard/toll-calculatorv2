@@ -3,12 +3,28 @@
   justify-content: center;
   flex-direction: row;
   align-items: center;
+  // height: 80vh;
 }
 
 .fav-unavailable {
   font-size: 2.6rem;
   font-style: italic;
   color: lighten($blue, 40%);
+}
+
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
+
+.unavailable-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90vw;
+  height: 50vh;
 }
 
 .routes-container {
