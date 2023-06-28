@@ -5,6 +5,7 @@ import {
   faPhone,
   faMapMarker,
 } from "@fortawesome/free-solid-svg-icons";
+import { GrSend } from "react-icons/gr";
 
 const ContactPage = () => (
   <div className="container-content">
@@ -14,8 +15,6 @@ const ContactPage = () => (
           <i className="fas fa-map-marker-alt"></i>
           <div className="topic">Address</div>
           <FontAwesomeIcon icon={faMapMarker} size="lg" />
-          <div className="text-one">Timis</div>
-          <div className="text-two">Timisoara</div>
         </div>
         <div className="phone details">
           <FontAwesomeIcon icon={faPhone} size="lg" />
@@ -26,7 +25,6 @@ const ContactPage = () => (
         <div className="email details">
           <FontAwesomeIcon icon={faEnvelope} size="lg" />
           <div className="topic">Email</div>
-          <div className="text-one">contact@gmail.com</div>
           <div className="text-two"></div>
         </div>
       </div>
@@ -42,7 +40,10 @@ const ContactPage = () => (
           <div className="input-box message-box">
             <input type="textarea" placeholder="Enter your message" />
           </div>
-          <input className="send-btn" type="button" value="Send Now" />
+          <button className="send-btn" type="submit">
+            Send now &nbsp;
+            <GrSend className="icon" />
+          </button>
         </form>
       </div>
     </div>

@@ -82,7 +82,7 @@ const newRoute = async (req, res) => {
   res.status(200).send(result);
 };
 
-const searchVignettes = async (req, res) => {
+const searchVignettes = (req, res) => {
   const { routes } = req.body;
   let countriesOnRoute = [];
   vignettes = [];
@@ -106,43 +106,46 @@ const searchVignettes = async (req, res) => {
   res.send(vignettes);
 };
 
-const addToFavorites = async (req, res) => {
+const addToFavorites = (req, res) => {
   const { route, uid } = req.body;
-  if (route && uid) {
-    db.ref(
-      `users/${uid}/favorites/${route.origin} - ${route.destination}`
-    ).update({
-      route,
-    });
 
-    res.send("Route added to favorites");
+  if (route && uid) {
+    db.ref(`users/${uid}/favorites/${route.origin} - ${route.destination}`)
+      .update({
+        route,
+      })
+      .then(() => {
+        res.status(200).send("Route added to favorites");
+      })
+      .catch((error) => {
+        res.status(500).send("Error saving data: ", error);
+      });
   }
 };
 
-const getFavoriteRoutes = async (req, res) => {
+const getFavoriteRoutes = (req, res) => {
   const uid = req.headers.uid;
+
   db.ref(`users/${uid}/favorites`)
     .once("value")
     .then((snapshot) => {
-      const data = snapshot.val();
-
-      res.send(data);
-    })
-    .catch((error) => {
-      console.error("Error retrieving data:", error);
-    });
-};
-
-const removeFromFavorites = async (req, res) => {
-  const { route, uid } = req.body;
-  db.ref(`users/${uid}/favorites/${route}`)
-    .remove()
-    .then(() => {
-      console.log("route deleted");
-      res.status(200).send("Route succesfully deleted");
+      res.status(200).send(snapshot.val());
     })
     .catch((error) => {
       res.status(500).send(error);
+    });
+};
+
+const removeFromFavorites = (req, res) => {
+  const { route, uid } = req.body;
+
+  db.ref(`users/${uid}/favorites/${route}`)
+    .remove()
+    .then(() => {
+      res.status(200).send("Route succesfully deleted");
+    })
+    .catch((error) => {
+      res.status(500).send("Error while trying to delete: ", error);
     });
 };
 

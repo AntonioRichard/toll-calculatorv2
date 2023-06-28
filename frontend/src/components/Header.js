@@ -56,11 +56,6 @@ const Header = ({ startLogout, user }) => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/contact" id="nav-link">
-                  Contact
-                </NavLink>
-              </li>
-              <li>
                 <NavLink to="/favorites" id="nav-link">
                   Favorites
                 </NavLink>
@@ -87,17 +82,10 @@ const Header = ({ startLogout, user }) => {
                   </ul>
                 </li>
               ) : (
-                <li className="dropdown">
-                  <NavLink to="/login" id="nav-link">
+                <li className="unauthenticated-button">
+                  <NavLink to="/login" id="login-button" className="active">
                     Login
                   </NavLink>
-                  <ul className="nav-dropdown">
-                    <li>
-                      <NavLink to="/register" id="nav-link">
-                        Register
-                      </NavLink>
-                    </li>
-                  </ul>
                 </li>
               )}
             </ul>

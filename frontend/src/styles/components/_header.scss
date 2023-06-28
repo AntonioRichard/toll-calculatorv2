@@ -120,6 +120,24 @@ nav {
   }
 }
 
+.unauthenticated-button {
+  #login-button {
+    text-decoration: none;
+    color: #fff;
+    margin-top: 15px;
+    border-radius: 20px;
+    background-color: lighten($rich-black, 5%);
+    padding: 10px 20px;
+    line-height: 20px;
+    box-shadow: 0px 3px 3px 1px rgba(0, 0, 0, 0.5);
+    transition: 0.5s;
+
+    &:hover {
+      background-color: lighten($rich-black, 10%);
+    }
+  }
+}
+
 .nav-mobile {
   display: none;
   position: absolute;
@@ -128,6 +146,7 @@ nav {
   background: $rich-black;
   height: $nav-height;
   width: $nav-height;
+  transition: 0.5s;
 }
 
 .active {
@@ -142,7 +161,6 @@ nav {
 
   nav {
     width: 100%;
-    padding: $nav-height 0 1.5rem;
     ul {
       display: none;
 
@@ -151,7 +169,7 @@ nav {
 
         #nav-link {
           padding: 1.5rem;
-          line-height: 2rem;
+          line-height: 1.5rem;
 
           &:hover::before {
             width: 20%;
@@ -165,6 +183,12 @@ nav {
   }
   .nav-dropdown {
     position: static;
+  }
+
+  .dropdown,
+  .unauthenticated-button {
+    background-color: #051923;
+    height: 70px;
   }
 }
 
@@ -202,7 +226,7 @@ li.dropdown {
     position: absolute;
     display: block;
     content: "";
-    transition: all 300ms ease-in-out;
+    transition: all 500ms ease-in-out;
   }
   span:before {
     top: -1rem;
